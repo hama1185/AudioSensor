@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioSample : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // Start is called before the first frame update  
     void Start(){
         foreach(var device in Microphone.devices){
 			Debug.Log("Name: " + device);
@@ -19,7 +19,8 @@ public class AudioSample : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        float[] spectrum = new float[512];
+        calculateNote calculatenote = new calculateNote();
+        float[] spectrum = new float[1024];
         //spectrum[N] = (N * F/2) / Q
         //Q is arrayMax, F is frequency
         AudioListener.GetSpectrumData(spectrum, 0 , FFTWindow.Rectangular);
@@ -34,6 +35,10 @@ public class AudioSample : MonoBehaviour
         }
         // Debug.Log(AudioSettings.outputSampleRate);
         var freq = maxIndex * AudioSettings.outputSampleRate / 2 / spectrum.Length;
-        Debug.Log(freq); 
+        if(freq != 0){
+            var notenumber = calculatenote.calculateNoteNumber(freq);
+            // Debug.Log("notenumber" + notenumber);
+            Debug.Log("scale" + calculatenote.detectScale(notenumber));
+        }
     }
 }
