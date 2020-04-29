@@ -8,7 +8,6 @@ public class calculateNote
 
     // Update is called once per frame
     public int calculateNoteNumber(float freq){
-        var value = (69 + 12 * Mathf.Log(freq / 440, 2));
         int notenumber = Mathf.FloorToInt((69 + 12 * Mathf.Log(freq / 440, 2)));
         return notenumber;
     }
@@ -17,6 +16,11 @@ public class calculateNote
         int index = notenumber % 12;
         int level = (notenumber / 12) - 1;//国際式を基準に用いた
         // Debug.Log("index" + index);
-        return scaleNames[index] + level.ToString();
+        if(index == 1){
+            return scaleNames[index] + level.ToString();
+        }
+        else{
+            return scaleNames[index];
+        }
     }
 }
