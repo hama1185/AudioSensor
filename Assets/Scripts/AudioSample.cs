@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioSample : MonoBehaviour
 {
     // Start is called before the first frame update  
+    public Text ScaleText;
     void Start(){
         foreach(var device in Microphone.devices){
 			Debug.Log("Name: " + device);
@@ -38,7 +40,7 @@ public class AudioSample : MonoBehaviour
         if(freq != 0){
             var notenumber = calculatenote.calculateNoteNumber(freq);
             // Debug.Log("notenumber" + notenumber);
-            Debug.Log("scale" + calculatenote.detectScale(notenumber));
+            ScaleText.text = calculatenote.detectScale(notenumber);
         }
     }
 }
